@@ -25,7 +25,7 @@ public class Calculator {
                 res = n1/n2;
                 break;
             default:
-                throw new IllegalStateException("ОШИБКА. Неверный оператор: " + op +". Доступны только: +, -, *, /");
+                throw new IllegalStateException("ОШИБКА. Неверный оператор: " + op +". Доступны только: +, -, *, / ");
         }
         return res;
     }
@@ -57,18 +57,21 @@ public class Calculator {
 
 
         if(num1 < 1 || num1 > 10){
-            throw new CalculatorException("Ошибка. Операнды не должны быть меньше 1(I) или больше 10(X)");
+            throw new CalculatorException("ОШИБКА. Операнды не должны быть меньше 1(I) или больше 10(X)");
         }
         if(num2 < 1 || num2 > 10){
-            throw new CalculatorException("Ошибка. Операнды не должны быть меньше 1(I) или больше 10(X)");
+            throw new CalculatorException("ОШИБКА. Операнды не должны быть меньше 1(I) или больше 10(X)");
         }
 
         int res = calc(num1, operator, num2);
 
+
+
         //конвертация в арабские для результата в римских
-        if (isRoman){
-            String sign = res < 0 ? "-" : "";
-            return sign + convertor.arabToRome(Math.abs(res));
+        if (isRoman && res > 1){
+            return convertor.arabToRome(Math.abs(res));
+        } else if (isRoman && res < 1){
+            throw new CalculatorException("ОШИБКА. В римском исчислении не предусмотрены цифры ниже единицы.");
         }
 
         return String.valueOf(res);
